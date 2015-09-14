@@ -1,5 +1,9 @@
 # -*- coding:utf8 -*-
-
+"""
+url:https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/
+run time:152 ms
+tip:区分好每个不同角色节点的判断逻辑就行了
+"""
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
