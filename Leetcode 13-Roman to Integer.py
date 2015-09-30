@@ -1,8 +1,9 @@
 # -*- coding:utf8 -*-
 """
 url:https://leetcode.com/problems/roman-to-integer/
-run time:0 ms
-tips:
+run time:156 ms
+tips:从前往后遍历罗马数字，如果某个数小于等于前一个数，则把该数加入到结果中；
+反之，则在结果中两次减去前一个数，并加上当前这个数
 """
 import operator
 
@@ -27,53 +28,32 @@ class Solution(object):
         # 计算结果
         result = 0
 
-        # 前一个字符
-        pre_c = None
-
         # 前一个值
         pre_v = None
-
-        # 实际操作
-        oper = operator.add
-
-        # 连续的相同字符之和
-        section_sum = 0
 
         # 遍历计算
         for c in s:
             now_v = roman_value[c]
 
             # 首个字符
-            if not pre_c:
-                section_sum = now_v
+            if not pre_v:
+                result = now_v
             else:
-                # 遇到相同字符，则继续
-                if pre_v == now_v:
-                    section_sum += now_v
+                # 根据前后大小关系，改变计算方法
+                if pre_v < now_v:
+                    result -= pre_v * 2
+                    result += now_v
+                elif pre_v >= now_v:
+                    result += now_v
 
-                else:
-                    # 遇到不同字符，根据前后大小关系，改变计算方法
-                    if pre_v < now_v:
-                        oper = operator.sub
-                    elif pre_v > now_v:
-                        oper = operator.add
-
-                    result += oper(now_v, section_sum)
-                    section_sum = 0
-
-            pre_c = c
             pre_v = now_v
-
-        result += section_sum
 
         return result
 
-       
-        
 
 def test():
     s = Solution()
-    roman_num = 'IIIVVVIII'
+    roman_num = 'DCXXI'
     print s.romanToInt(roman_num)
 
 if __name__ == '__main__':
